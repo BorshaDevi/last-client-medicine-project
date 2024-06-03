@@ -8,17 +8,44 @@ import {
 } from "react-router-dom";
 import Root from './Layout/Root/Root.jsx';
 import Error from './Components/Error/Error.jsx';
+import DashBoard from './Layout/DashBoard/DashBoard.jsx';
+import AuthProvider from './Provider/AuthProvider/AuthProvider.jsx';
+import Home from './Pages/Home/Home.jsx';
+import SignUp from './Pages/SignUp/SignUp.jsx';
+import Login from './Pages/Login/Login.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
-    errorElement:<Error></Error>
+    errorElement:<Error></Error>,
+    children:[
+      {
+        path:'/',
+        element:<Home></Home>
+      },
+      {
+        path:'/signUp',
+        element:<SignUp></SignUp>
+      },
+      {
+        path:'/login',
+        element:<Login></Login>
+      }
+    ]
   },
+  {
+    path:'dashboard',
+    element:<DashBoard></DashBoard>,
+    errorElement:<Error></Error>
+
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-   <RouterProvider router={router} />
+  <AuthProvider>
+  <RouterProvider router={router} />
+  </AuthProvider>
   </React.StrictMode>,
 )
