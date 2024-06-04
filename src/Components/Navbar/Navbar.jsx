@@ -1,14 +1,20 @@
 import { IoCartOutline } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hook/useAuth";
-import { useContext } from "react";
-import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 
 
 
 const Navbar = () => {
-    const {user}=useAuth()
-    // const {user}=useContext(AuthContext)
+    const {user,logOut}=useAuth()
+  const handleLogout=()=>{
+        logOut()
+        .then(res => {
+           console.log(res)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+  }
     const navLink= 
        <>
        <li><NavLink to='/' className={({ isActive,  }) =>
@@ -71,18 +77,15 @@ const Navbar = () => {
          <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
         </div>
       </div>
       <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-        <li>
-          <a className="justify-between">
-            Profile
-            <span className="badge">New</span>
-          </a>
-        </li>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li>User Profile</li>
+        <li><NavLink to='dashboard' className={({ isActive,  }) =>
+     isActive ? 'underline text-teal-500 font-bold' : ""
+  }>Dashboard</NavLink></li>
+        <li><button onClick={handleLogout}   className="btn">Log out</button></li>
       </ul>
     </div>
         </> 
