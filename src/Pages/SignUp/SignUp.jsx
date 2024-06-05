@@ -39,29 +39,35 @@ const axiosSecret=useSecret()
             role:data.role,
             
           }
-          console.log(userData)
+          // console.log(userData)
           const userInfo= await axiosSecret.post('/user',userData)
-          console.log(userInfo.data)
-          reset()
-                Swal.fire({
-          title: "Sign up successfully",
-          showClass: {
-            popup: `
-              animate__animated
-              animate__fadeInUp
-              animate__faster
-            `
-          },
-          hideClass: {
-            popup: `
-              animate__animated
-              animate__fadeOutDown
-              animate__faster
-            `
+          // console.log(userInfo.data)
+          if(userInfo.data.insertedId){
+            
+            reset()
+            Swal.fire({
+      title: "Sign up successfully",
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `
+      },
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `
+      }
+      
+    }); 
           }
-        });   
+         
+        
         })
-     
+        
       })
       .catch(error => console.log(error))
   

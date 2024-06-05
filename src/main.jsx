@@ -18,6 +18,16 @@ import {
   QueryClientProvider,
   
 } from '@tanstack/react-query'
+import PaymentHistory from './Pages/DashBoardPages/UserPages/PaymentHistory.jsx';
+import ManageUsers from './Pages/DashBoardPages/AdminPages/ManageUsers.jsx';
+import ManageCategory from './Pages/DashBoardPages/AdminPages/ManageCategory.jsx';
+import PaymentManagement from './Pages/DashBoardPages/AdminPages/PaymentManagement.jsx';
+import SalesReport from './Pages/DashBoardPages/AdminPages/SalesReport.jsx';
+import ManageBanner from './Pages/DashBoardPages/AdminPages/ManageBanner.jsx';
+import ManageMedicines from './Pages/DashBoardPages/SellerPages/ManageMedicines.jsx';
+import SellerPaymentHistory from './Pages/DashBoardPages/SellerPages/SellerPaymentHistory.jsx';
+import Advertisment from './Pages/DashBoardPages/SellerPages/Advertisment.jsx';
+import CategoryUpdate from './Pages/DashBoardPages/AdminPages/CategoryUpdate.jsx';
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -43,7 +53,52 @@ const router = createBrowserRouter([
   {
     path:'dashboard',
     element:<DashBoard></DashBoard>,
-    errorElement:<Error></Error>
+    errorElement:<Error></Error>,
+    children:[
+      // admin pages
+      {
+        path:'manageUsers',
+        element:<ManageUsers></ManageUsers>
+      },
+      {
+        path:'manageCategory',
+        element:<ManageCategory></ManageCategory>
+      },
+      {
+          path:'categoryUpdate/:id',
+          element:<CategoryUpdate></CategoryUpdate>
+      },
+      {
+          path:'paymentManage',
+          element:<PaymentManagement></PaymentManagement>
+      },
+      {
+        path:'salesReport',
+        element:<SalesReport></SalesReport>
+      },
+      {
+        path:'manageBanner',
+        element:<ManageBanner></ManageBanner>
+      },
+      // seller pages
+      {
+         path:'manageMedicines',
+         element:<ManageMedicines></ManageMedicines>
+      },
+      {
+          path:'manageHistory',
+          element:<SellerPaymentHistory></SellerPaymentHistory>
+      },
+      {
+         path:'advertisement',
+         element:<Advertisment></Advertisment>
+      },
+      // user pages
+      {
+        path:'userPaymentHistory',
+        element:<PaymentHistory></PaymentHistory>
+      },
+    ]
 
   }
 ]);

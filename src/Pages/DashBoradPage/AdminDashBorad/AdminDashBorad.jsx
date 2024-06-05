@@ -20,11 +20,11 @@ const AdminDashBorad = () => {
     <div className="flex flex-col justify-between flex-1 mt-6">
         <ul>
 
-            <NavDashborad name={'Manage Users'} address='manageUsers' icon={LuUsers2}></NavDashborad>
-            <NavDashborad name={'Manage Category'} address='manageCategory' icon={BiCategory}></NavDashborad>
-            <NavDashborad name={'Payment management'} address='paymentManage' icon={RiSecurePaymentFill}></NavDashborad>
-            <NavDashborad name={'Sales Report'} address='salesReport' icon={FcSalesPerformance}></NavDashborad>
-            <NavDashborad name={'Manage banner Advertise'} address='manageBanner' icon={FcAdvertising}></NavDashborad>
+            <NavDashborad name={'Manage Users'} address='/dashboard/manageUsers' icon={LuUsers2}></NavDashborad>
+            <NavDashborad name={'Manage Category'} address='/dashboard/manageCategory' icon={BiCategory}></NavDashborad>
+            <NavDashborad name={'Payment management'} address='/dashboard/paymentManage' icon={RiSecurePaymentFill}></NavDashborad>
+            <NavDashborad name={'Sales Report'} address='/dashboard/salesReport' icon={FcSalesPerformance}></NavDashborad>
+            <NavDashborad name={'Manage banner Advertise'} address='/dashboard/manageBanner' icon={FcAdvertising}></NavDashborad>
             
         </ul>
 

@@ -18,9 +18,9 @@ const SellerDashBoard = () => {
     <div className="flex flex-col justify-between flex-1 mt-6">
         <ul>
 
-            <NavDashborad name={'Manage Medicines'} address='manageMedicines' icon={GiMedicines}></NavDashborad>
-            <NavDashborad name={'Payment History'} address='manageHistory' icon={MdWorkHistory}></NavDashborad>
-            <NavDashborad name={'Ask For Advertisement'} address='advertisement' icon={RiAdvertisementLine }></NavDashborad>
+            <NavDashborad name={'Manage Medicines'} address='/dashboard/manageMedicines' icon={GiMedicines}></NavDashborad>
+            <NavDashborad name={'Payment History'} address='/dashboard/manageHistory' icon={MdWorkHistory}></NavDashborad>
+            <NavDashborad name={'Ask For Advertisement'} address='/dashboard/advertisement' icon={RiAdvertisementLine }></NavDashborad>
           
             
         </ul>

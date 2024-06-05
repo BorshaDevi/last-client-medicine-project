@@ -17,7 +17,7 @@ const UserDashBoard = () => {
     <div className="flex flex-col justify-between flex-1 mt-6">
         <ul>
 
-            <NavDashborad name={'Payment history'} address='userPaymentHistory' icon={MdWorkHistory}></NavDashborad>
+            <NavDashborad name={'Payment history'} address='/dashboard/userPaymentHistory' icon={MdWorkHistory}></NavDashborad>
            
           
             
