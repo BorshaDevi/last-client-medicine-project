@@ -6,7 +6,7 @@ const NavDashborad = ({name, address ,icon:Icon}) => {
         <div className="mb-5">
           
              <li><NavLink to={address} className={({ isActive,  }) =>
-     isActive ? 'underline bg-teal-500 font-bold text-black' : ""
+     isActive ? 'underline bg-teal-500 font-bold text-teal-500' : ""
   }>
   <div className="flex">
   <Icon className="mt-1 mr-3" />

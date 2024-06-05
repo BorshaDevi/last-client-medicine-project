@@ -55,8 +55,33 @@ const ManageCategory = () => {
         }
 
     }
-   const handleDelete=id=>{
+   const handleDelete=(id)=>{
     console.log(id)
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+
+        const dataDelete=await axiosSecret.delete(`/categoryDelete/${id}`)
+    if(dataDelete.data.deletedCount >0){
+      refetch()
+      Swal.fire({
+        title: "Deleted!",
+        text: "This category successfully deleted.",
+        icon: "success"
+      });
+    }
+        
+      }
+    });
+    
    }
     return (
         <div>
@@ -99,7 +124,7 @@ const ManageCategory = () => {
             </td>
             <th>
             
-            <FcDeleteDatabase onClick={() => handleDelete(categoryAdmin._id)} className=" text-xl" />
+            <FcDeleteDatabase onClick={() => handleDelete(category._id)} className=" text-xl" />
             </th>
           </tr>)
      }
