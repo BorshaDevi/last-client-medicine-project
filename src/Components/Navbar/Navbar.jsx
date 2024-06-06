@@ -28,7 +28,7 @@ const Navbar = () => {
        <li>
   <details>
           <summary>Language</summary>
-          <ul className="p-2">
+          <ul className="p-2 z-50">
             <li><a>English</a></li>
             <li><a>Bangla</a></li>
           </ul>

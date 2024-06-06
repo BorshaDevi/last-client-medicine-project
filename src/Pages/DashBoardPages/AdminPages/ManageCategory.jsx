@@ -56,7 +56,7 @@ const ManageCategory = () => {
 
     }
    const handleDelete=(id)=>{
-    console.log(id)
+    
 
     Swal.fire({
       title: "Are you sure?",
@@ -85,8 +85,8 @@ const ManageCategory = () => {
    }
     return (
         <div>
-           <div className="overflow-x-auto">
-  <table className="table">
+           <div className="w-full">
+  <table className="table ">
     {/* head */}
     <thead>
       <tr>
@@ -104,7 +104,7 @@ const ManageCategory = () => {
      {
         categoryAdmin.map(category =>  <tr key={category._id}>
             <th>
-             
+             {category.number}
             </th>
             <td>
               <div className="flex items-center gap-3">
@@ -135,6 +135,7 @@ const ManageCategory = () => {
   </table>
 </div> 
    {/* Open the modal using document.getElementById('ID').showModal() method */}
+<div>
 <button className="btn  ml-60 mt-10 bg-teal-300" onClick={()=>document.getElementById('my_modal_5').showModal()}>Add category</button>
 <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
   <div className="modal-box">
@@ -167,6 +168,7 @@ const ManageCategory = () => {
     </div>
   </div>
 </dialog>
+</div>
         </div>
     );
 };

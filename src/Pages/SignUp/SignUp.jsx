@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 
 import usePublie from "../../Hook/usePublie";
 import useSecret from "../../Hook/useSecret";
+import axios from "axios";
 
 const image_api=import.meta.env.VITE_iMG_API
 const image_url=`https://api.imgbb.com/1/upload?key=${image_api}`
@@ -25,7 +26,7 @@ const axiosSecret=useSecret()
     // const photo={photo : data.photo[0]}
     const formData=new FormData()
     formData.append('image',data.photo[0])
-    const res=await axiosPublic.post(image_url,formData)
+    const res=await axios.post(image_url,formData)
     const photo=res?.data?.data?.display_url
     console.log(data)
     if(res.data.success){

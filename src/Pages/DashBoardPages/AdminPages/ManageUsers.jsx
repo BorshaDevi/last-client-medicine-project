@@ -14,13 +14,13 @@ const ManageUsers = () => {
         }
         
     })
-    const handleButton=(e)=>{
+    const handleButton=()=>{
         console.log('working')
     }
     
     return (
         <div>
-          <div className="overflow-x-auto">
+          <div className="max-w-screen-lg mx-auto">
   <table className="table table-zebra">
     {/* head */}
     <thead>
