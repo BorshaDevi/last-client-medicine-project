@@ -28,6 +28,10 @@ import ManageMedicines from './Pages/DashBoardPages/SellerPages/ManageMedicines.
 import SellerPaymentHistory from './Pages/DashBoardPages/SellerPages/SellerPaymentHistory.jsx';
 import Advertisment from './Pages/DashBoardPages/SellerPages/Advertisment.jsx';
 import CategoryUpdate from './Pages/DashBoardPages/AdminPages/CategoryUpdate.jsx';
+import Shop from './Pages/Shop/Shop.jsx';
+import Cart from './Pages/Home/Cart/Cart.jsx';
+import EyeDetail from './Components/EyeDetail/EyeDetail.jsx';
+import CategoryDetail from './Pages/Home/CategoryDetail/CategoryDetail.jsx';
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -47,7 +51,20 @@ const router = createBrowserRouter([
       {
         path:'/login',
         element:<Login></Login>
-      }
+      },
+      {
+        path:'/shop',
+        element:<Shop></Shop>
+      },
+      {
+        path:'/cart',
+        element:<Cart></Cart>
+      },
+      {
+          path:'/categoryDetail/:category',
+          element:<CategoryDetail></CategoryDetail>
+      },
+      
     ]
   },
   {
@@ -98,6 +115,7 @@ const router = createBrowserRouter([
         path:'userPaymentHistory',
         element:<PaymentHistory></PaymentHistory>
       },
+    
     ]
 
   }

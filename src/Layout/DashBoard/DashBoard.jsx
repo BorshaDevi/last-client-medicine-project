@@ -11,7 +11,7 @@ const DashBoard = () => {
     const {role}=useRole()
     console.log(role)
     return (
-        <div className='flex'>
+        <div className="max-w-6xl mx-auto lg:flex ">
             <div>
                 {role.role === 'admin' && <AdminDashBorad></AdminDashBorad>  }
                 {role.role === 'seller' && <SellerDashBoard></SellerDashBoard> }

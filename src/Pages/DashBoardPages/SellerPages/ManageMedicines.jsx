@@ -32,7 +32,7 @@ const ManageMedicines = () => {
         }
     })
 
-    const {data : categorySeller = []}=useQuery({
+    const {data : categorySeller = [],refetch}=useQuery({
         queryKey:['categorySeller'],
         queryFn:async()=>{
             const result=await axiosSecret.get('/categorySeller')
@@ -65,7 +65,7 @@ const ManageMedicines = () => {
             const res=await axiosSecret.post('/medicines',inFo)
             console.log(res.data)
             if(res.data.insertedId){
-              
+              refetch()
               reset()
               Swal.fire({
         title: `${data.itemName} added successfully`,
@@ -92,7 +92,7 @@ const ManageMedicines = () => {
       <div>
      {/* table */}
 
-     <div className="overflow-x-auto">
+     <div className="w-full">
   <table className="table">
     {/* head */}
     <thead>
@@ -100,10 +100,13 @@ const ManageMedicines = () => {
         <th>
          
         </th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-        <th></th>
+        <th>Name and Generic</th>
+        <th >Company Name</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Discount</th>
+        <th>Quantity</th>
+        <th>Mass unit</th>
       </tr>
     </thead>
     <tbody>
@@ -117,21 +120,27 @@ const ManageMedicines = () => {
           <div className="flex items-center gap-3">
             <div className="avatar">
               <div className="mask mask-squircle w-12 h-12">
-                <img src="https://img.daisyui.com/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
+                <img src={medicine.photo} alt="Avatar Tailwind CSS Component" />
               </div>
             </div>
             <div>
-              <div className="font-bold">Hart Hagerty</div>
-              <div className="text-sm opacity-50">United States</div>
+              <div className="font-bold">{medicine.itemName}</div>
+              <div className="text-sm opacity-50">{medicine.generic}</div>
             </div>
           </div>
         </td>
-        <td>
-          Zemlak, Daniel and Leannon
-          <br/>
-          <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
+        <td className="uppercase">
+          {medicine.companyName}
+          
         </td>
-        <td>Purple</td>
+        <td>
+          {medicine.price}
+          
+        </td>
+        <td className="uppercase">{medicine.category}</td>
+        <td>{medicine.discount}</td>
+        <td>{medicine.quantity}</td>
+        <td>{medicine.mass}</td>
        
       </tr>)
      }
