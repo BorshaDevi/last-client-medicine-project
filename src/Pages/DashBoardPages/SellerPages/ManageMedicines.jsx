@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import useAuth from "../../../Hook/useAuth";
 import usePublie from "../../../Hook/usePublie";
+import Swal from "sweetalert2";
 
 const image_api=import.meta.env.VITE_iMG_API;
 const image_url=`https://api.imgbb.com/1/upload?key=${image_api}`
@@ -20,21 +21,31 @@ const ManageMedicines = () => {
         reset,
         formState: { errors },
       } = useForm()
-   
+     
+      const {data : medicinesSeller = []}=useQuery({
+        queryKey:['medicinesSeller',user?.email],
+        queryFn:async()=>{
+            const res=await axiosSecret.get(`/medicinesSeller/${user?.email}`)
+            console.log(medicinesSeller)
+            console.log(res.data)
+            return res.data
+        }
+    })
+
     const {data : categorySeller = []}=useQuery({
         queryKey:['categorySeller'],
         queryFn:async()=>{
             const result=await axiosSecret.get('/categorySeller')
-            console.log(categorySeller)
-            console.log(result.data)
             return result.data
         }
     })
+    
+    
     const onSubmit = async(data) =>{
         
         const form=new FormData()
         form.append('image',data.photo[0])
-        const  image=await axiosPublic.post(image_url,form)
+        const  image=await axios.post(image_url,form)
         const photo=image.data.data.display_url
         if(image.data.success){
             const inFo={
@@ -53,13 +64,83 @@ const ManageMedicines = () => {
             console.log('from info',inFo)
             const res=await axiosSecret.post('/medicines',inFo)
             console.log(res.data)
+            if(res.data.insertedId){
+              
+              reset()
+              Swal.fire({
+        title: `${data.itemName} added successfully`,
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+        
+      }); 
+            }
         }
     }
     return (
       <div>
      {/* table */}
 
-
+     <div className="overflow-x-auto">
+  <table className="table">
+    {/* head */}
+    <thead>
+      <tr>
+        <th>
+         
+        </th>
+        <th>Name</th>
+        <th>Job</th>
+        <th>Favorite Color</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {/* row 1 */}
+     {
+      medicinesSeller.map((medicine , index) =>   <tr key={medicine._id}>
+        <th>
+         {index +1}
+        </th>
+        <td>
+          <div className="flex items-center gap-3">
+            <div className="avatar">
+              <div className="mask mask-squircle w-12 h-12">
+                <img src="https://img.daisyui.com/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
+              </div>
+            </div>
+            <div>
+              <div className="font-bold">Hart Hagerty</div>
+              <div className="text-sm opacity-50">United States</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          Zemlak, Daniel and Leannon
+          <br/>
+          <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
+        </td>
+        <td>Purple</td>
+       
+      </tr>)
+     }
+     
+    </tbody>
+    
+    
+  </table>
+</div>
 
 
 
@@ -137,19 +218,17 @@ const ManageMedicines = () => {
   </select>
   {errors.companyName && <span className="text-red-500">!companyName is required</span> }
 </label>
-  <label  className="form-control w-full max-w-xs">
+ <div>
+ <label className="form-control w-full max-w-xs">
   <div className="label">
-    <span className="label-text">Mass Unit</span>
-    
+    <span className="label-text-alt text-xl"> Mass unit</span>
   </div>
-  <select {...register ('mass',{required:true})} className="select select-bordered">
-    <option value=''>Select one</option>
-    <option value='mg'>mg</option>
-    <option value='ml'>ml</option>
-   
-  </select>
+  <input type="text"  {...register ('mass',{required:true})}  placeholder="0 mg or ml"  className="input input-bordered w-full max-w-xs" />
   {errors.mass && <span className="text-red-500">!mass is required</span> }
 </label>
+ </div>
+ 
+
   </div>
   {/* 6 */}
   <div className="flex gap-3">
