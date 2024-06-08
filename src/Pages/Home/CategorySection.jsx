@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import usePublie from "../../Hook/usePublie";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hook/useAuth";
 
 
 const CategorySection = () => {
+    const {loading}=useAuth()
     const axiosPublic=usePublie()
     const {data : categorySection =[]}=useQuery({
         queryKey:['categorySection'],
@@ -15,9 +17,10 @@ const CategorySection = () => {
     })
 
     return (
-        <div>
-            <h1 className="uppercase text-center text-2xl font-semibold">category of <span className="text-teal-600">medicine</span></h1>
-       <div className="grid lg:grid-cols-3 gap-5 ml-5">
+        <div className="mt-10">
+            <h1 className="uppercase text-center text-2xl font-semibold mb-10">category of <span className="text-teal-600">medicine</span></h1>
+       {
+        loading? <span className="loading text-center loading-ring loading-lg"></span>  :<div className="grid lg:grid-cols-3 gap-5 ml-5">
         {
             categorySection.map(cat => <Link key={cat._id} to={`/categoryDetail/${cat?.categoryName}`}>
                <div  className="card w-96 bg-base-100 shadow-xl">
@@ -34,6 +37,7 @@ const CategorySection = () => {
         }
 
        </div>
+       }
         </div>
     );
 };

@@ -30,8 +30,11 @@ import Advertisment from './Pages/DashBoardPages/SellerPages/Advertisment.jsx';
 import CategoryUpdate from './Pages/DashBoardPages/AdminPages/CategoryUpdate.jsx';
 import Shop from './Pages/Shop/Shop.jsx';
 import Cart from './Pages/Home/Cart/Cart.jsx';
-import EyeDetail from './Components/EyeDetail/EyeDetail.jsx';
+
 import CategoryDetail from './Pages/Home/CategoryDetail/CategoryDetail.jsx';
+import PrivateRoute from './Router/PrivateRouter/PrivateRoute.jsx';
+import AdminRoute from './Router/AdminRoute/AdminRoute.jsx';
+import UpdateProfile from './Pages/UpdateProfile/UpdateProfile.jsx';
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -58,12 +61,17 @@ const router = createBrowserRouter([
       },
       {
         path:'/cart',
-        element:<Cart></Cart>
+        element:<PrivateRoute><Cart></Cart></PrivateRoute>
       },
       {
           path:'/categoryDetail/:category',
-          element:<CategoryDetail></CategoryDetail>
+          element:<PrivateRoute><CategoryDetail></CategoryDetail></PrivateRoute>
       },
+      {
+        path:'/updateProfile',
+        element:<PrivateRoute><UpdateProfile></UpdateProfile></PrivateRoute>
+      },
+      
       
     ]
   },
@@ -75,27 +83,27 @@ const router = createBrowserRouter([
       // admin pages
       {
         path:'manageUsers',
-        element:<ManageUsers></ManageUsers>
+        element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute>
       },
       {
         path:'manageCategory',
-        element:<ManageCategory></ManageCategory>
+        element:<AdminRoute><ManageCategory></ManageCategory></AdminRoute>
       },
       {
           path:'categoryUpdate/:id',
-          element:<CategoryUpdate></CategoryUpdate>
+          element:<AdminRoute><CategoryUpdate></CategoryUpdate></AdminRoute>
       },
       {
           path:'paymentManage',
-          element:<PaymentManagement></PaymentManagement>
+          element:<AdminRoute><PaymentManagement></PaymentManagement></AdminRoute>
       },
       {
         path:'salesReport',
-        element:<SalesReport></SalesReport>
+        element:<AdminRoute><SalesReport></SalesReport></AdminRoute>
       },
       {
         path:'manageBanner',
-        element:<ManageBanner></ManageBanner>
+        element:<AdminRoute><ManageBanner></ManageBanner></AdminRoute>
       },
       // seller pages
       {
@@ -113,7 +121,7 @@ const router = createBrowserRouter([
       // user pages
       {
         path:'userPaymentHistory',
-        element:<PaymentHistory></PaymentHistory>
+        element:<PrivateRoute><PaymentHistory></PaymentHistory></PrivateRoute>
       },
     
     ]

@@ -7,23 +7,32 @@ import { useState } from "react";
 import useAuth from "../../Hook/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import EyeDetail from "../../Components/EyeDetail/EyeDetail";
+
 
 
 const Shop = () => {
     const {user}=useAuth()
     const navigate=useNavigate()
     const axiosSecret=useSecret()
+    const [modal ,setModal]=useState({})
+    const [loaded,setLoaded]=useState(true)
     // const [select,setSelect]=useState(false)
     const axiosPublic=usePublie()
     const {data : shopMedicines = [],refetch}=useQuery({
         queryKey:['shopMedicines'],
         queryFn:async()=>{
             const result=await axiosPublic.get('/shopMedicines')
-            console.log(shopMedicines)
             return result.data
         }
     })
+    const handleModal=async(id)=>{
+      console.log(id)
+      const result=await axiosSecret.get(`/medicineDetail/${id}`)
+      // refetch()
+      setModal(result.data)
+      setLoaded(false)
+      console.log(modal)
+    }
     const handleShop=async(medicine)=>{
         if(user){
           const cart={
@@ -65,9 +74,7 @@ const Shop = () => {
           navigate('/login')
         }
     }
-    // const handleEye=async(id)=>{
-    //   const detail
-    // }
+  
     return (
         <div>
             
@@ -125,12 +132,36 @@ const Shop = () => {
         <td onClick={() => handleShop(medicine)} className="text-xl btn"><GrCheckboxSelected /> </td>
           {/* {
             select? <GrCheckboxSelected className="disabled text-red-500" /> :  <td onClick={() => handleShop(medicine)} className="text-xl btn"><GrCheckboxSelected /> </td>
-          } */}
-        
-        {/* <Link to={``}><td className="text-xl"><IoMdEye /></td></Link> */}
-        {/* The button to open modal */}
-       {/* <Link to={medicine._id} ></Link>
-       <th><EyeDetail ></EyeDetail></th> */}
+          } */}  
+         <label htmlFor="my_modal_6" className="text-xl btn ml-2"><IoMdEye onClick={() => handleModal(medicine._id)}></IoMdEye></label>
+
+{/* Put this part before </body> tag */}
+<input type="checkbox" id="my_modal_6" className="modal-toggle" />
+<div className="modal" role="dialog">
+  <div className="modal-box">
+  <div className="hero min-h-screen bg-base-200">
+
+    {
+      loaded? <span className="loading loading-ring loading-lg"></span>   :
+      <div className="hero-content flex-col lg:flex-row">
+   
+      <img src={modal.photo} className="w-20 rounded-lg shadow-2xl" />
+    
+     <div>
+       <h1 className="text-5xl font-bold">{modal.itemName}</h1>
+       <p className="py-6">{modal.description}</p>
+       <button className="btn btn-primary">Get Started</button>
+     </div>
+   </div>
+    }
+ 
+</div>
+    <div className="modal-action">
+      <label htmlFor="my_modal_6" className="btn">Close!</label>
+    </div>
+  </div>
+</div> 
+            
       </tr>)
      }
      

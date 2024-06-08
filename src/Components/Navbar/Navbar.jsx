@@ -5,7 +5,7 @@ import useAuth from "../../Hook/useAuth";
 
 
 const Navbar = () => {
-    const {user,logOut}=useAuth()
+    const {user,logOut,loading}=useAuth()
   const handleLogout=()=>{
         logOut()
         .then(res => {
@@ -72,6 +72,7 @@ const Navbar = () => {
   </div>
   <div className="navbar-end">
     {
+      loading? <span className="loading loading-ring loading-lg"></span>  : <div> {
         user ? 
         <>
          <div className="dropdown dropdown-end">
@@ -81,7 +82,7 @@ const Navbar = () => {
         </div>
       </div>
       <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-        <li>User Profile</li>
+        <li><NavLink to='/updateProfile'>Update Profile</NavLink></li>
         <li><NavLink to='dashboard' className={({ isActive,  }) =>
      isActive ? 'underline text-teal-500 font-bold' : ""
   }>Dashboard</NavLink></li>
@@ -91,6 +92,7 @@ const Navbar = () => {
         </> 
         
         : <Link to='/login'><button className="hover:bg-teal-400 btn">Join Us</button></Link>
+    } </div>
     }
   </div>
 </div>

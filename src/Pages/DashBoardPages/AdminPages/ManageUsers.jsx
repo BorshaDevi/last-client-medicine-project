@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import useSecret from "../../../Hook/useSecret";
+import { useState } from "react";
 
 
 const ManageUsers = () => {
     const axiosSecret=useSecret()
+    const [updateRole,setUpdateRole]=useState()
     const {data : users =[] , refetch}=useQuery({
         queryKey:['users'],
         queryFn:async()=>{
@@ -39,7 +41,7 @@ const ManageUsers = () => {
             <td>{user.name}</td>
             <td>{user.email}</td>
             <td>
-            <select onClick={() => handleButton()} defaultValue={user.role} className="select w-full max-w-xs">
+            <select onClick={() => handleButton()} defaultValue={user.role} value={updateRole} className="select w-full max-w-xs">
                 <option  value=''>Role</option>
                 <option value='user'>user</option>
                 <option value='seller'>seller</option>
