@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useSecret from "../../../Hook/useSecret";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 
 const ManageUsers = () => {
     const axiosSecret=useSecret()
-    const [updateRole,setUpdateRole]=useState()
+    // const [updateRole ,setUpdateRole]=useState('')
     const {data : users =[] , refetch}=useQuery({
         queryKey:['users'],
         queryFn:async()=>{
@@ -16,10 +17,32 @@ const ManageUsers = () => {
         }
         
     })
-    const handleButton=()=>{
-        console.log('working')
+    const handleUpdate=async(e,Id)=>{
+       const newRole=e.target.value
+       const roleUpdate=await axiosSecret.patch(`/roleUpdate/${Id}`,{role :newRole})
+       if(roleUpdate.data.modifiedCount > 0){
+        refetch()
+        Swal.fire({
+          title: " successfully",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `
+          }
+          
+        }); 
+       }
     }
-    
+    // console.log(updateRole)
     return (
         <div>
           <div className="max-w-screen-lg mx-auto">
@@ -41,7 +64,7 @@ const ManageUsers = () => {
             <td>{user.name}</td>
             <td>{user.email}</td>
             <td>
-            <select onClick={() => handleButton()} defaultValue={user.role} value={updateRole} className="select w-full max-w-xs">
+            <select onChange={(e)=> handleUpdate(e,user?._id)} defaultValue={user.role}  className="select w-full max-w-xs">
                 <option  value=''>Role</option>
                 <option value='user'>user</option>
                 <option value='seller'>seller</option>

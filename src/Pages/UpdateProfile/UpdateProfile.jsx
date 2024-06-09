@@ -1,22 +1,34 @@
 import axios from "axios";
 import useAuth from "../../Hook/useAuth";
+import { useState } from "react";
 
 const image_api=import.meta.env.VITE_iMG_API
 const image_url=`https://api.imgbb.com/1/upload?key=${image_api}`
 
 const UpdateProfile = () => {
     const {updateUser,user}=useAuth()
+    const[image,setImage]=useState(null)
 
     const handleUpdate=async(e)=>{
         e.preventDefault()
         const form=e.target
         const name=form.name.value
-        const photo=form.photo.value
-        const formData=new FormData()
-        formData.append('image',photo)
-        const dataPhoto=await axios.post(image_url,formData)
-        console.log('Photo Data',dataPhoto)
         
+        const formData=new FormData()
+        formData.append('image',image)
+        const dataPhoto=await axios.post(image_url,formData)
+        const photo=dataPhoto.data.data.display_url
+        if(dataPhoto.data.success){
+            updateUser(name,photo)
+            .then(res => {
+                // window.location.href='/updateProfile'
+            })
+            .catch(error => console.log(error))
+        }
+        
+    }
+    const handleChange=e=>{
+        setImage(e.target.files[0])
     }
 
     return (
@@ -37,7 +49,7 @@ const UpdateProfile = () => {
   <input type="text" name='name' className="grow" placeholder="Update Your name" />
 </label>
 
-<input type="file" name='photo' className=" mt-5 file-input file-input-bordered w-full max-w-xs" />
+<input type="file" onChange={handleChange} name='photo' className=" mt-5 file-input file-input-bordered w-full max-w-xs" />
 <input type="submit" className="btn text-center bg-teal-300" value='Update' />
     </form>
   </div>
