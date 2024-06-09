@@ -4,16 +4,21 @@ import { BiMessageError } from "react-icons/bi";
 import useSecret from "../../Hook/useSecret";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hook/useAuth";
+import { HiMiniCheck } from "react-icons/hi2";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 
 const CheckOutForm = () => {
     const {user}=useAuth()
+    const navigate=useNavigate()
     const [clientSecret ,setClientSecret]=useState('')
+    const [transactionId,setTransactionId]=useState('')
     const axiosSecret=useSecret()
     const [errorMessage ,setError]=useState('')
     const stripe=useStripe()
     const elements=useElements()
-    const{data : cart =[]}=useQuery({
+    const{data : cart =[] , refetch}=useQuery({
         queryKey:['cart'],
         queryFn:async()=>{
             const cartData=await axiosSecret.get(`/cart/${user?.email}`)
@@ -50,6 +55,61 @@ const CheckOutForm = () => {
         console.log('[PaymentMethods]',paymentMethod)
         setError('')
        }
+       const {paymentIntent ,error : confirmError}= await stripe.confirmCardPayment(clientSecret, {
+         payment_method: {
+           card: card,
+           billing_details: {
+             
+             email:user?.email,
+           },
+         },
+       })
+       if(confirmError){
+        console.log(confirmError)
+       }
+       else{
+        console.log(paymentIntent)
+        if(paymentIntent.status === 'succeeded'){
+          setTransactionId(paymentIntent.id)
+         }
+         const paymentData={
+          buyerEmail:user?.email,
+          price:totalPrice,
+          transactionId:paymentIntent.id,
+          status:'pending',
+          date:new Date(),
+          medicineNames:cart.map(name => name.medicineName),
+          cartIds:cart.map(cartId => cartId._id ),
+          menuIds:cart.map(menu => menu.menuId),
+          sellerEmail:cart.map(email => email.sellerEmail)
+         }
+         console.log("paymentData",paymentData)
+         const paymentDataSet=await axiosSecret.post('/payment',paymentData)
+         if(paymentDataSet.data.result.insertedId && paymentDataSet.data.updateDoc.deletedCount>0 ){
+           refetch()
+           Swal.fire({
+            title: "Payment successful",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `
+            }
+            
+          }); 
+          navigate('/invoicePage')
+         }
+       }
+       
+      
     }
     return (
         <div>
@@ -76,6 +136,7 @@ const CheckOutForm = () => {
       </button>
             </form>
             { errorMessage && <p className="text-red-500 flex gap-1 mt-5"><BiMessageError />{errorMessage}</p>}
+            { transactionId && <p className="text-green-500 flex gap-1 mt-5"><HiMiniCheck />{transactionId}</p>}
         </div>
     );
 };

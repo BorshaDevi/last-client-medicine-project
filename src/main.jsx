@@ -36,6 +36,7 @@ import PrivateRoute from './Router/PrivateRouter/PrivateRoute.jsx';
 import AdminRoute from './Router/AdminRoute/AdminRoute.jsx';
 import UpdateProfile from './Pages/UpdateProfile/UpdateProfile.jsx';
 import CheckOut from './Pages/CheckOut/CheckOut.jsx';
+import InvoicePage from './Pages/CheckOut/InvoicePage.jsx';
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -74,7 +75,11 @@ const router = createBrowserRouter([
       },
       {
             path:'/checkout',
-            element:<CheckOut></CheckOut>
+            element:<PrivateRoute><CheckOut></CheckOut></PrivateRoute>
+      },
+      {
+        path:'/invoicePage',
+        element:<PrivateRoute><InvoicePage></InvoicePage></PrivateRoute>
       },
       
       
