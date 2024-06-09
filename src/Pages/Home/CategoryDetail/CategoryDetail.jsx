@@ -33,9 +33,9 @@ const CategoryDetail = () => {
     
     }
 
-    const handleClose=()=>{
-       setModal()
-    }
+    // const handleClose=()=>{
+    //    setModal()
+    // }
     const handleShop=async(medicine)=>{
         
           const cart={

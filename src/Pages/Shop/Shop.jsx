@@ -49,7 +49,7 @@ const Shop = () => {
             console.log(addCart.data)
             if(addCart.data.insertedId){
               // setSelect(true)
-             refetch()
+             
               Swal.fire({
                 title: `${medicine.itemName}  added successfully`,
                 showClass: {
@@ -68,6 +68,7 @@ const Shop = () => {
                 }
                 
               });
+              refetch()
             }
         }
         else{

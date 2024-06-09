@@ -1,11 +1,22 @@
 import { IoCartOutline } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hook/useAuth";
+import useSecret from "../../Hook/useSecret";
+import { useQuery } from "@tanstack/react-query";
 
 
 
 const Navbar = () => {
     const {user,logOut,loading}=useAuth()
+    const axiosSecret=useSecret()
+    const{data : cart =[]}=useQuery({
+        queryKey:['cart'],
+        queryFn:async()=>{
+            const cartData=await axiosSecret.get(`/cart/${user?.email}`)
+            console.log(cartData.data)
+            return cartData.data
+        }
+    })
   const handleLogout=()=>{
         logOut()
         .then(res => {
@@ -40,7 +51,7 @@ const Navbar = () => {
      isActive ? 'underline text-teal-500 font-bold' : ""
   }><button className="btn">
   <IoCartOutline />
-  <div className="badge badge-secondary">+99</div>
+  <div className="badge badge-secondary">{cart.length}</div>
 </button>
   </NavLink></li>
        </>
