@@ -4,6 +4,7 @@ import { FcDeleteDatabase } from "react-icons/fc";
 import useAuth from "../../../Hook/useAuth";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 
 const Cart = () => {
@@ -72,7 +73,7 @@ const Cart = () => {
     return (
         <div>
             <div className=" mx-auto">
-            <h1 className="text-center text-2xl font-bold text-teal-400">Your Carts</h1>
+            <h1 className="text-center text-2xl font-bold text-teal-400">Your Orders</h1>
             <select onChange={handleSort} value={sort} name='sort' id='sort' className="select select-bordered w-full max-w-xs">
                 <option value=''>Sort</option>
                 <option value='asc'>Increase</option>
@@ -83,6 +84,9 @@ const Cart = () => {
             <div className="flex justify-between text-xl  font-semibold">
                 <h1>Total cart : {cart.length}</h1>
                 <h1>Total Price :${totalPrice}</h1>
+                {
+                    cart.length ? <Link to='/checkout'><button className="bg-teal-700 p-3 btn">Pay</button></Link> : <button disabled className="bg-teal-700 p-3 btn">Pay</button>
+                }
             </div>
 
             <div className="overflow-x-auto">
@@ -105,7 +109,7 @@ const Cart = () => {
             <th>{index +1}</th>
             <td>{car.medicineName}</td>
             <td className="uppercase">{car.companyName}</td>
-            <td>{car.price}</td>
+            <td>${car.price}</td>
             <td>{car.quantity}</td>
             <td><FcDeleteDatabase onClick={() => handleCartDelete(car)} className="text-xl"></FcDeleteDatabase></td>
           </tr>)

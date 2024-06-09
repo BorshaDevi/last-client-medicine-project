@@ -35,6 +35,7 @@ import CategoryDetail from './Pages/Home/CategoryDetail/CategoryDetail.jsx';
 import PrivateRoute from './Router/PrivateRouter/PrivateRoute.jsx';
 import AdminRoute from './Router/AdminRoute/AdminRoute.jsx';
 import UpdateProfile from './Pages/UpdateProfile/UpdateProfile.jsx';
+import CheckOut from './Pages/CheckOut/CheckOut.jsx';
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path:'/updateProfile',
         element:<PrivateRoute><UpdateProfile></UpdateProfile></PrivateRoute>
+      },
+      {
+            path:'/checkout',
+            element:<CheckOut></CheckOut>
       },
       
       
