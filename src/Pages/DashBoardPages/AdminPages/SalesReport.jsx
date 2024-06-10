@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useSecret from "../../../Hook/useSecret";
-
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas-pro';
+import { useRef } from "react";
 
 const SalesReport = () => {
     const axiosSecret=useSecret()
@@ -12,10 +14,21 @@ const SalesReport = () => {
             return saleReport.data
         }
     })
+    const userDataRef = useRef(null);
+  const handlePrint =() => {
+    const input = userDataRef.current;
+
+    html2canvas(input).then( ( canvas) => {
+      const imgData =  canvas.toDataURL('image/png');
+      const pdf = new jsPDF("portrait", "px", [800, 800]);
+      pdf.addImage(imgData, 'PNG', 10, 10);
+      pdf.save('download.pdf');
+    });
+  };
     
     return (
         <div>
-           <div className="overflow-x-auto">
+           <div ref={userDataRef}className="overflow-x-auto container border">
   <table className="table">
     {/* head */}
     <thead>
@@ -37,7 +50,7 @@ const SalesReport = () => {
                     sales.medicineNames.map(name => name)
                 }
             </td>
-            <td className="">{sales.sellerEmail.map(email=> email)}</td>
+            <td className="">{sales.sellerEmail.map((email ,index)=> <p key={index} > {email}</p>)}</td>
             <td>{sales.buyerEmail}</td>
             <td>{sales.price}</td>
           </tr>)
@@ -46,6 +59,9 @@ const SalesReport = () => {
     </tbody>
   </table>
 </div>
+<div className="mx-auto">
+       <button onClick={handlePrint} className="btn bg-teal-600">Print</button>
+       </div>
         </div>
     );
 };

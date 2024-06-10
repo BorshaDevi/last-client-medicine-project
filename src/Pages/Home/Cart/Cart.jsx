@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useSecret from "../../../Hook/useSecret";
 import { FcDeleteDatabase } from "react-icons/fc";
 import useAuth from "../../../Hook/useAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
@@ -21,9 +21,14 @@ const Cart = () => {
         }
         
     })
+    useEffect(() => {
+      refetch()
+    },[sort])
     const handleSort=e=>{
+      
         setSort(e.target.value)
-        refetch()
+        console.log(e.target.value)
+        // refetch()
         }
         const handleCartDelete=async(car)=>{
 
@@ -75,9 +80,9 @@ const Cart = () => {
             <div className=" mx-auto">
             <h1 className="text-center text-2xl font-bold text-teal-400">Your Orders</h1>
             <select onChange={handleSort} value={sort} name='sort' id='sort' className="select select-bordered w-full max-w-xs">
-                <option value=''>Sort</option>
-                <option value='asc'>Increase</option>
-                <option value='desc'>Decrease</option>
+                <option value='sort'>Sort</option>
+                <option value='asc'>Asc</option>
+                <option value='desc'>Desc</option>
                 
                 </select>
             </div>
