@@ -10,7 +10,7 @@ const AdminDashBorad = () => {
     const {user}=useAuth()
     return (
         <div className="">
-            <div className="stats shadow md:ml-64">
+            <div className="stats shadow md:ml-60">
   
   <div className="stat">
     <div className="stat-figure text-primary">
@@ -40,9 +40,9 @@ const AdminDashBorad = () => {
 
     
 
-    <div className="flex flex-col justify-between flex-1 mt-6">
+    <div className="flex flex-col justify-between flex-1 mt-6 ">
         
-        <ul>
+        <ul className="">
 
             <NavDashborad name={'Manage Users'} address='/dashboard/manageUsers' icon={LuUsers2}></NavDashborad>
             <NavDashborad name={'Manage Category'} address='/dashboard/manageCategory' icon={BiCategory}></NavDashborad>
