@@ -10,7 +10,7 @@ const AdminDashBorad = () => {
     const {user}=useAuth()
     return (
         <div className="">
-            <div className="stats shadow md:ml-60">
+            <div className="stats shadow ">
   
   <div className="stat">
     <div className="stat-figure text-primary">

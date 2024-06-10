@@ -155,7 +155,7 @@ const Shop = () => {
      <div>
        <h1 className="text-5xl font-bold">{modal.itemName}</h1>
        <p className="py-6">{modal.description}</p>
-       <button className="btn btn-primary">Get Started</button>
+       
      </div>
    </div>
     }
