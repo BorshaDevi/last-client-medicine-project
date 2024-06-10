@@ -5,6 +5,7 @@ import useAuth from "../../../Hook/useAuth";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 
 const Cart = () => {
@@ -77,6 +78,9 @@ const Cart = () => {
     
     return (
         <div>
+          <Helmet>
+            <title>Indigo Medicine || cart</title>
+          </Helmet>
             <div className=" mx-auto">
             <h1 className="text-center text-2xl font-bold text-teal-400">Your Orders</h1>
             <select onChange={handleSort} value={sort} name='sort' id='sort' className="select select-bordered w-full max-w-xs">

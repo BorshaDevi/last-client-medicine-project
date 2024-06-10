@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hook/useAuth";
 import useSecret from "../../../Hook/useSecret";
+import { Helmet } from "react-helmet-async";
 
 
 const PaymentHistory = () => {
@@ -16,6 +17,9 @@ const PaymentHistory = () => {
     })
     return (
         <div>
+          <Helmet>
+            <title>Indigo Medicine || Payment History</title>
+          </Helmet>
             <h1 className="text-center font-bold text-xl text-teal-600 mt-10">Your Payment History</h1>
             <div className="divider"></div>
             <div className="overflow-x-auto">

@@ -37,6 +37,8 @@ import AdminRoute from './Router/AdminRoute/AdminRoute.jsx';
 import UpdateProfile from './Pages/UpdateProfile/UpdateProfile.jsx';
 import CheckOut from './Pages/CheckOut/CheckOut.jsx';
 import InvoicePage from './Pages/CheckOut/InvoicePage.jsx';
+import SellerRoute from './Router/SellerRoute/SellerRoute.jsx';
+import { HelmetProvider } from 'react-helmet-async';
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -118,15 +120,15 @@ const router = createBrowserRouter([
       // seller pages
       {
          path:'manageMedicines',
-         element:<ManageMedicines></ManageMedicines>
+         element:<SellerRoute><ManageMedicines></ManageMedicines></SellerRoute>
       },
       {
           path:'manageHistory',
-          element:<SellerPaymentHistory></SellerPaymentHistory>
+          element:<SellerRoute><SellerPaymentHistory></SellerPaymentHistory></SellerRoute>
       },
       {
          path:'advertisement',
-         element:<Advertisment></Advertisment>
+         element:<SellerRoute><Advertisment></Advertisment></SellerRoute>
       },
       // user pages
       {
@@ -142,9 +144,12 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
   <AuthProvider>
+    <HelmetProvider>
+
   <QueryClientProvider client={queryClient}>
   <RouterProvider router={router} />
     </QueryClientProvider>
+    </HelmetProvider>
   </AuthProvider>
   </React.StrictMode>,
 )

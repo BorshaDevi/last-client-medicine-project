@@ -6,10 +6,12 @@ import Swal from 'sweetalert2';
 import useAuth from '../../../Hook/useAuth';
 import { GrCheckboxSelected } from 'react-icons/gr';
 import { IoMdEye } from 'react-icons/io';
+import usePublie from '../../../Hook/usePublie';
 
 const CategoryDetail = () => {
     const {user}=useAuth()
     const axiosSecret=useSecret()
+    const axiosPublic=usePublie
     const {category}=useParams()
     const [modal ,setModal]=useState({})
     const [loaded,setLoaded]=useState(true)
@@ -26,7 +28,7 @@ const CategoryDetail = () => {
     })
 
     const handleModal=async(id)=>{
-      const result=await axiosSecret.get(`/medicineDetail/${id}`)
+      const result=await axiosPublic.get(`/medicineDetail/${id}`)
       // refetch()
       setModal(result.data)
       setLoaded(false)

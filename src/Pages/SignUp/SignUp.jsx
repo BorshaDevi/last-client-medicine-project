@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import usePublie from "../../Hook/usePublie";
 import useSecret from "../../Hook/useSecret";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 
 const image_api=import.meta.env.VITE_iMG_API
 const image_url=`https://api.imgbb.com/1/upload?key=${image_api}`
@@ -79,6 +80,9 @@ const axiosSecret=useSecret()
    
     return (
         <div>
+          <Helmet>
+            <title>Indigo Medicine || Sign Up</title>
+          </Helmet>
         <div className="hero min-h-screen ">
 <div className="hero-content flex-col lg:flex-row-reverse">
   <img src="https://i.ibb.co/yqHsL0p/4957412-Mobile-login-Cristina.jpg" className="lg:max-w-screen-sm " alt="" />

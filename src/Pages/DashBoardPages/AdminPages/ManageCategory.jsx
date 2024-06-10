@@ -4,6 +4,7 @@ import { MdSystemUpdateAlt } from "react-icons/md";
 import { FcDeleteDatabase } from "react-icons/fc";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 
 const ManageCategory = () => {
@@ -85,6 +86,9 @@ const ManageCategory = () => {
    }
     return (
         <div>
+          <Helmet>
+            <title>Indigo Medicine || Manage Category</title>
+          </Helmet>
            <div className="w-full">
   <table className="table ">
     {/* head */}

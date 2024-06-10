@@ -7,6 +7,7 @@ import { useState } from "react";
 import useAuth from "../../Hook/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -27,7 +28,7 @@ const Shop = () => {
     })
     const handleModal=async(id)=>{
       console.log(id)
-      const result=await axiosSecret.get(`/medicineDetail/${id}`)
+      const result=await axiosPublic.get(`/medicineDetail/${id}`)
       // refetch()
       setModal(result.data)
       setLoaded(false)
@@ -78,6 +79,9 @@ const Shop = () => {
   
     return (
         <div>
+          <Helmet>
+            <title>Indigo Medicine || Shop</title>
+          </Helmet>
             
      <div className="overflow-x-auto ">
   <table className="table">

@@ -7,6 +7,7 @@ import axios from "axios";
 import useAuth from "../../../Hook/useAuth";
 import usePublie from "../../../Hook/usePublie";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const image_api=import.meta.env.VITE_iMG_API;
 const image_url=`https://api.imgbb.com/1/upload?key=${image_api}`
@@ -90,6 +91,9 @@ const ManageMedicines = () => {
     }
     return (
       <div>
+        <Helmet>
+            <title>Indigo Medicine || Manage Medicine</title>
+          </Helmet>
      {/* table */}
 
      <div className="w-full">

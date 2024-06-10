@@ -14,4 +14,6 @@ Jungkook*27
 5.In my backend I deploy vercel.
 6.For database I  use MongoDB
 7.In this web site you pay and download your pay detail data in pdf
-8.
+8.In this page I implement verify token 
+9.Also dashboard
+10.Helmet  package for title

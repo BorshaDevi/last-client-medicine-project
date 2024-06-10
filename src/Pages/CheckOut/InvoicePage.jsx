@@ -4,6 +4,7 @@ import useSecret from "../../Hook/useSecret";
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas-pro';
 import { useRef } from "react";
+import { Helmet } from "react-helmet-async";
 
 const InvoicePage = () => {
   const userDataRef = useRef(null);
@@ -30,6 +31,9 @@ const InvoicePage = () => {
     const totalAmount=userPaymentHistory.reduce((total,item)=>total + item.price,0)
     return (
         <>
+        <Helmet>
+            <title>Indigo Medicine || Invoice</title>
+          </Helmet>
         <div ref={userDataRef} className="mt-10 mb-10  container border">
             
            <div className="flex ">

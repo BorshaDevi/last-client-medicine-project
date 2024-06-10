@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useSecret from "../../../Hook/useSecret";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 
 const ManageUsers = () => {
@@ -45,6 +46,9 @@ const ManageUsers = () => {
     // console.log(updateRole)
     return (
         <div>
+          <Helmet>
+            <title>Indigo Medicine || Manage User</title>
+          </Helmet>
           <div className="max-w-screen-lg mx-auto">
   <table className="table table-zebra">
     {/* head */}

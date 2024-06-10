@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useSecret from "../../../Hook/useSecret";
 import useAuth from "../../../Hook/useAuth";
+import { Helmet } from "react-helmet-async";
 
 
 const SellerPaymentHistory = () => {
@@ -16,6 +17,9 @@ const SellerPaymentHistory = () => {
     })
     return (
         <div>
+          <Helmet>
+            <title>Indigo Medicine || Seller Payment History</title>
+          </Helmet>
             <div className="overflow-x-auto">
   <table className="table">
     {/* head */}

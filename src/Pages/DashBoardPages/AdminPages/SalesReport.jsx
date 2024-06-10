@@ -3,6 +3,7 @@ import useSecret from "../../../Hook/useSecret";
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas-pro';
 import { useRef } from "react";
+import { Helmet } from "react-helmet-async";
 
 const SalesReport = () => {
     const axiosSecret=useSecret()
@@ -28,6 +29,9 @@ const SalesReport = () => {
     
     return (
         <div>
+          <Helmet>
+            <title>Indigo Medicine || SalesReport</title>
+          </Helmet>
            <div ref={userDataRef}className="overflow-x-auto container border">
   <table className="table">
     {/* head */}

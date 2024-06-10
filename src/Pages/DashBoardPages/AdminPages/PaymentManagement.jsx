@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import useSecret from "../../../Hook/useSecret";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 
 const PaymentManagement = () => {
@@ -42,6 +43,9 @@ const PaymentManagement = () => {
     }
     return (
         <div>
+          <Helmet>
+            <title>Indigo Medicine || Payment Management</title>
+          </Helmet>
             <div className="overflow-x-auto">
   <table className="table">
     {/* head */}
